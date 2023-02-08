@@ -22,20 +22,20 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           name: {{ .Chart.Name }}
-        env:
-        {{- with  .Values.dbenvs }}
-          {{- . | toYaml | nindent 10 -}}
-        {{- end }}
-        resources:
-          {{- toYaml .Values.resources | nindent 10 }}
-        ports:
-        - containerPort: 80
-          name: http
-          protocol: TCP
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /var/www/html/wordpress
-      volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: wordpress-pv-claim
+          env:
+          {{- with  .Values.dbenv }}
+            {{- . | toYaml | nindent 10 -}}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 10 }}
+          ports:
+          - containerPort: 80
+            name: http
+            protocol: TCP
+          volumeMounts:
+          - name: wordpress-persistent-storage
+            mountPath: /var/www/html/wordpress
+          volumes:
+          - name: wordpress-persistent-storage
+            persistentVolumeClaim:
+              claimName: wordpress-pv-claim
