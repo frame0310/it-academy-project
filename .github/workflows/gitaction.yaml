@@ -1,0 +1,55 @@
+name: Build
+
+on:
+  release:
+    types: [published]
+  push:
+    branches:
+      - "master"
+       
+jobs:
+  push_to_registries:
+    name: Push Docker image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      repository-projects: write
+      packages: write 
+    steps:    
+    
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          default_bump: patch
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+         
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }} 
+
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: frame0310/itacademyproject:${{ steps.tag_version.outputs.new_tag }}      
+
+      - name: Push helm package
+        run: |
+          git config user.name sergei.sechkov
+          git config user.email sergei.sechkov20@gmail.com
+          git add --all
+          git commit -m "wordpress version app ${{ steps.tag_version.outputs.new_tag }}"
+          git push          
