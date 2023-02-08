@@ -44,12 +44,22 @@ jobs:
         with:
           context: ./docker
           push: true
-          tags: frame0310/itacademyproject:${{ steps.tag_version.outputs.new_tag }}      
+          tags: frame0310/itacademyproject:${{ steps.tag_version.outputs.new_tag }}     
 
-      - name: Push helm package
+
+      - name: Helm Package and changes chart files and push github
         run: |
           git config user.name sergei.sechkov
           git config user.email sergei.sechkov20@gmail.com
+          sed -i "s/^version:.*$/version: ${{ steps.tag_version.outputs.new_tag }}/" ./helm-source/wordpress/Chart.yaml
+          sed -i "s/^appVersion:.*$/appVersion: ${{ steps.tag_version.outputs.new_tag }}/" ./helm-source/wordpress/Chart.yaml
+          sed -i "s/tag:.*$/tag: ${{ steps.tag_version.outputs.new_tag }}/" ./helm-source/wordpress/values.yaml
+          cd ./helm-source
+          helm package wordpress
+          mv wordpress-${{ steps.tag_version.outputs.new_tag }}.tgz ../helm-releases
+          cd ..
+          helm repo index --url https://github.com/frame0310/it-academy-project
           git add --all
           git commit -m "wordpress version app ${{ steps.tag_version.outputs.new_tag }}"
-          git push          
+          git push    
+          
