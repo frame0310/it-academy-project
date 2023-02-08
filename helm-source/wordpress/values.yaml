@@ -37,8 +37,12 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  name: wordpress-front
   type: ClusterIP
   port: 80
+
+host: wordpress.k8s-15.sa
+port: 80
 
 ingress:
   #enabled: false
@@ -55,6 +59,18 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+  pvc:
+  storage: 2Gi
+  type: nfs 
+
+pv:
+  storage: 5Gi
+  type: nfs
+
+nfs:
+  server: 192.168.37.105
+  path: /mnt/IT-Academy/nfs-data/sa2-22-22/ssechkov/wordpress/
+
 dbenv:
   - name: DB_HOST
     value: 192.168.202.33:3306
@@ -64,6 +80,7 @@ dbenv:
     value: wordpress_user1
   - name: DB_PASSWORD
     value: wordpress_pass1
+
 
 resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -77,15 +94,17 @@ resources:
      cpu: 200m
      memory: 256Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+pvc:
+  storage: 2Gi
+  type: nfs 
 
-nodeSelector: {}
+pv:
+  storage: 5Gi
+  type: nfs
 
-tolerations: []
+nfs:
+  server: 192.168.37.105
+  path: /mnt/IT-Academy/nfs-data/sa2-22-22/ssechkov/wordpress/
 
-affinity: {}
+
+
