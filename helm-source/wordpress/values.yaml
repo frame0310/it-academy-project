@@ -59,7 +59,7 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-  pvc:
+pvc:
   storage: 2Gi
   type: nfs 
 
@@ -93,18 +93,3 @@ resources:
    requests:
      cpu: 200m
      memory: 256Mi
-
-pvc:
-  storage: 2Gi
-  type: nfs 
-
-pv:
-  storage: 5Gi
-  type: nfs
-
-nfs:
-  server: 192.168.37.105
-  path: /mnt/IT-Academy/nfs-data/sa2-22-22/ssechkov/wordpress/
-
-
-
