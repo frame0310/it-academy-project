@@ -3,7 +3,7 @@ entries:
   wordpress:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-02-09T18:10:46.511388947Z"
+    created: "2023-02-09T18:17:18.311019255Z"
     description: A Helm chart for Kubernetes
     digest: 3d0985ae393a000558e1edc1984aac7d7eac9f2c70118e7df730f6279af144a3
     name: wordpress
@@ -12,8 +12,18 @@ entries:
     - https://github.com/frame0310/it-academy-project/helm-releases/wordpress-0.1.0.tgz
     version: 0.1.0
   - apiVersion: v2
+    appVersion: v0.0.24
+    created: "2023-02-09T18:17:18.312332778Z"
+    description: A Helm chart for Kubernetes
+    digest: 0e431bc5346049bc078b00b3d89301fd315c44b584742436cdb19daede2340f6
+    name: wordpress
+    type: application
+    urls:
+    - https://github.com/frame0310/it-academy-project/helm-releases/wordpress-v0.0.24.tgz
+    version: v0.0.24
+  - apiVersion: v2
     appVersion: v0.0.23
-    created: "2023-02-09T18:10:46.511873446Z"
+    created: "2023-02-09T18:17:18.311764768Z"
     description: A Helm chart for Kubernetes
     digest: f938504987fdd3a9b2fd43e48ca0b42d075664817b2c18d013f62021daa4411c
     name: wordpress
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/frame0310/it-academy-project/helm-releases/wordpress-v0.0.23.tgz
     version: v0.0.23
-generated: "2023-02-09T18:10:46.510644649Z"
+generated: "2023-02-09T18:17:18.310065239Z"

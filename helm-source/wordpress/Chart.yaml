@@ -2,5 +2,5 @@ apiVersion: v2
 name: wordpress
 description: A Helm chart for Kubernetes
 type: application
-version: v0.0.23
-appVersion: v0.0.23
+version: v0.0.24
+appVersion: v0.0.24

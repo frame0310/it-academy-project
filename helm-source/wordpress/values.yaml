@@ -8,7 +8,7 @@ image:
   repository: frame0310/IT-Academy-project
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  #tag: v0.0.23
+  #tag: v0.0.24
 
 imagePullSecrets: []
 nameOverride: ""
